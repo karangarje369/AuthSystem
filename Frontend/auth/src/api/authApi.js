@@ -1,7 +1,7 @@
 import axios from "axios"
-
+let URI = process.env.URI
 const API = axios.create(
-{    baseURL:"http://localhost:3000/api/auth/",
+{    baseURL:{URI},
 })
 
 export const registerAPI = (userData) => API.post("/register",userData);
