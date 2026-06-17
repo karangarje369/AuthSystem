@@ -7,7 +7,7 @@ export default defineConfig({
   plugins: [react(),tailwindcss(),],
    proxy: {
       '/api': {
-        target: 'http://localhost:3000',
+        target: ' https://authsystem-g9ia.onrender.com',
         changeOrigin: true,
         secure: false,
       }

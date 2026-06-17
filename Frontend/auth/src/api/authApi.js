@@ -1,5 +1,5 @@
 import axios from "axios"
-let URI = process.env.URI
+let URI = import.meta.env.URI
 const API = axios.create(
 {    baseURL:{URI},
 })
