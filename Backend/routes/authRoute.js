@@ -3,6 +3,7 @@ import { registerUser , loginUser } from "../controllers/auth.controller.js"
 
 const Authroute = express.Router();
 
-Authroute.post("/register", registerUser)
-Authroute.post("/login" , loginUser)
+//we have created sub route in authroute 
+Authroute.post("/register", registerUser)//this is resister route 
+Authroute.post("/login" , loginUser)//this is login route 
 export default Authroute

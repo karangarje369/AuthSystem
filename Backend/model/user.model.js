@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 import bcrypt from "bcryptjs";
-
+import jwt from "jsonwebtoken"
 const userSchema = new mongoose.Schema(
     {
        username:{
@@ -13,7 +13,6 @@ const userSchema = new mongoose.Schema(
             required:true,
             unique:true,
             lowercase:true,
-
         },
         password:{
             type:String,
@@ -23,6 +22,7 @@ const userSchema = new mongoose.Schema(
     {timestamps:true}
 )
 
+// using pre save hook to handle password
 userSchema.pre("save",async function  () {
     if(!this.isModified("password")) {
         return
@@ -33,8 +33,19 @@ userSchema.pre("save",async function  () {
         this.password = await bcrypt.hash(this.password, salt)
         
     } catch (error) {
-        next(error)
+        throw error
     }
-})
+
+}
+)
+// generating jwt
+userSchema.methods.generateJWT = function () {
+    
+    const payload = { id: this._id };
+
+    return jwt.sign(payload, process.env.JWT_SECRET, {
+        expiresIn: "1d", 
+    });
+}
 
 export const User = mongoose.model("User",userSchema)
